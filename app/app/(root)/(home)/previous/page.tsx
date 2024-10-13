@@ -1,14 +1,15 @@
 import React from "react";
 
-const Home = () => {
+const Previous = () => {
   return (
     <section className="flex size-full gap-10 flex-col text-white">
       <h1 className="text-3xl font-bold">
-        Home
+        Previous
       </h1>
     </section>
 
   )
 }
 
-export default Home;
+export default Previous;
+
