@@ -175,6 +175,7 @@ body {
   animation: show 0.7s forwards linear;
 }
 
+
 @keyframes show {
   0% {
     animation-timing-function: ease-in;
