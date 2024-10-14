@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import HomeCardComponent from "./HomeCard";
 import MeetingModal from "./MeetingModal";
@@ -17,9 +18,16 @@ const MeetingTypeList = () => {
   })
 
   const [callDetails, setCallDetails] = useState<Call>()
+  const { toast } = useToast();
   const createMeeting = async () => {
     if (!client || !user) return;
     try {
+
+      if (!values.datetTime) {
+        toast({ title: "Please select date and time" })
+        return
+      }
+
       const id = crypto.randomUUID();
       const call = client.call('default', id);
 
@@ -43,8 +51,13 @@ const MeetingTypeList = () => {
         router.push(`/meeting/${call.id}`)
       }
 
+      toast({ title: "Meeting created!" });
+
     } catch (error) {
       console.log(error);
+      toast({
+        title: "Failed to create Meeting",
+      })
     }
   }
   const router = useRouter();

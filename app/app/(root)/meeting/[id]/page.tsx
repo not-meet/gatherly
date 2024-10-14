@@ -1,8 +1,31 @@
-import React from "react";
+"use client"
 
-const Meeting = ({ params }: { params: { id: string } }) => {
+import Loader from "@/app/components/Loader";
+import MeetingRoom from "@/app/components/MeetingRoom";
+import MeetingSetup from "@/app/components/MeetingSetup";
+import { useGetCallById } from "@/hooks/useGetCallsById";
+import { useUser } from "@clerk/nextjs";
+import { StreamCall, StreamTheme } from "@stream-io/video-react-sdk";
+import React, { useState } from "react";
+
+const Meeting = ({ params: { id } }: { params: { id: string } }) => {
+  const { user, isLoaded } = useUser()
+  const [isSetupComplete, setIsSetupComplete] = useState(false)
+  const { call, isCallLoading } = useGetCallById(id);
+
+  if (!isLoaded || isCallLoading) return <Loader />
   return (
-    <div>Meeting room : #{params.id}</div>
+    <main className="h-screen w-full">
+      <StreamCall call={call}>
+        <StreamTheme>
+          {!isSetupComplete ? (
+            <MeetingSetup setIsSetupComplete={setIsSetupComplete} />
+          ) : (
+            <MeetingRoom />
+          )}
+        </StreamTheme>
+      </StreamCall>
+    </main>
   )
 }
 
