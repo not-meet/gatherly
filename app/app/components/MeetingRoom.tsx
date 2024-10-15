@@ -13,6 +13,7 @@ import React, { useState } from "react";
 import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
 import { useSearchParams } from "next/navigation";
 import EndCallButton from "./EndCallButton";
+import { useRouter } from 'next/navigation'
 
 type CallLayoutType = 'grid' | 'speakerLeft' | 'speakerRight';
 
@@ -23,9 +24,8 @@ const MeetingRoom = () => {
   const [layout, setLayout] = useState<CallLayoutType>('speakerLeft')
   const [showParticipants, setShowParticipants] = useState(false);
   const { useCallCallingState } = useCallStateHooks();
-
   const callingState = useCallCallingState();
-
+  const router = useRouter();
   if (callingState !== CallingState.JOINED) return <Loader />
 
   const CallLayout = () => {
@@ -50,7 +50,7 @@ const MeetingRoom = () => {
         </div>
       </div>
       <div className=" flex-wrap fixed bottom-0 flex w-full items-center justify-center gap-5">
-        <CallControls />
+        <CallControls onLeave={() => router.push('/')} />
         <DropdownMenu>
           <div className="flex items-center">
             <DropdownMenuTrigger className="cursor-pointer rounded-2xl bg-[#19232d] px-4 py-2 hover:bg-[#4c535b]"><LayoutList size={20} className="text-white" /></DropdownMenuTrigger>
