@@ -8,6 +8,7 @@ import HomeCardComponent from "./HomeCard";
 import MeetingModal from "./MeetingModal";
 import { useUser } from "@clerk/nextjs";
 import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
+import { Input } from '@/components/ui/input';
 
 const MeetingTypeList = () => {
   const [meetingState, setMeetingState] = useState<'isSheduleMeeting' | 'isJoiningMeeting' | 'isInstantMeeting' | undefined>()
@@ -126,6 +127,12 @@ const MeetingTypeList = () => {
 
       <MeetingModal isOpen={meetingState === 'isInstantMeeting'} onClose={() => setMeetingState(undefined)}
         title="Start an instant meeting" className='text-center' buttonText='start Meeting' handleclick={createMeeting} />
+
+      <MeetingModal isOpen={meetingState === 'isJoiningMeeting'} onClose={() => setMeetingState(undefined)}
+        title="Type the link here" className='text-center' buttonText='start Meeting' handleclick={() => router.push(values.link)}>
+        <Input className='border-none focus-visible:ring-0 focus-visible:ring-offset-0' onChange={(e) => setValues({ ...values, link: e.target.value })} placeholder='Meeting link' />
+      </MeetingModal>
+
     </section>
   )
 }
