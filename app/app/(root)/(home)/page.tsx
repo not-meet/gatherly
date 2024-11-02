@@ -1,3 +1,4 @@
+"use client"
 import MeetingTypeList from "@/app/components/MeetingTypeList";
 import React, { useState, useEffect } from "react";
 
