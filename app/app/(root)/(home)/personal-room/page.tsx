@@ -21,7 +21,7 @@ const PersonalRoom = () => {
   const client = useStreamVideoClient();
   const { user } = useUser()
   const meetingId = user?.id;
-  const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meetingId}?personal=true`
+  const meetingLink = `gatherly-taupe.vercel.app/meeting/${meetingId}?personal=true`
   const { call } = useGetCallById(meetingId!)
   const startRoom = async () => {
     if (!client || !user) return;
