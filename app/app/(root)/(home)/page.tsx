@@ -1,11 +1,20 @@
 import MeetingTypeList from "@/app/components/MeetingTypeList";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const Home = () => {
-  const now = new Date();
+  const [currentTime, setCurrentTime] = useState(new Date());
 
-  const time = now.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit' });
-  const date = (new Intl.DateTimeFormat('en-US', { dateStyle: 'full' })).format(now);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const time = currentTime.toLocaleString('en-US', { hour: '2-digit', minute: '2-digit' });
+  const date = new Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(currentTime);
+
   return (
     <section className="flex size-full gap-10 flex-col text-white">
       <div className="h-[300px] w-full rounded-[20px] bg-hero bg-cover">
@@ -22,8 +31,8 @@ const Home = () => {
 
       <MeetingTypeList />
     </section>
-
-  )
+  );
 }
 
 export default Home;
+
