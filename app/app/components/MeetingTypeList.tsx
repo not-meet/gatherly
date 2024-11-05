@@ -78,14 +78,14 @@ const MeetingTypeList = () => {
       <HomeCardComponent
         img="/icons/schedule.svg"
         title="schedule Meeting"
-        description="Plan your meeting meeting"
+        description="Plan your meeting"
         handleclick={() => setMeetingState('isSheduleMeeting')}
         classname="bg-blue-1"
       />
       <HomeCardComponent
         img="/icons/recordings.svg"
         title="View Recordings"
-        description="View saved recodrings"
+        description="View saved recordings"
         handleclick={() => { router.push('/recordings') }}
         classname="bg-yellow-1"
       />
